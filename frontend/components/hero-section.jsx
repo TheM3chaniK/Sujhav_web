@@ -4,20 +4,9 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Camera, Play } from "lucide-react"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import LoginModal from "@/components/login-modal"
 import Link from "next/link"
 
 export default function HeroSection() {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-   const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  useEffect(() => {
-    // Check if user is logged in from localStorage
-    const userData = localStorage.getItem("user")
-    if (userData) {
-      setIsLoggedIn(true)
-    }
-  }, [])
 
   return (
     <section id="home" className="sm:pb-14 relative min-h-screen flex items-center justify-center overflow-hidden py-4">
@@ -38,9 +27,9 @@ export default function HeroSection() {
           {/* Left Content */}
           <div className="space-y-8">
             <div className="space-y-6">
-              
 
-              <h1 className="text-6xl mt-4 md:text-7xl tracking-wide font-bold leading-tight">
+
+              <h1 className="text-5xl md:text-6xl lg:text-7xl mt-4 tracking-wide font-bold leading-tight">
                 <span className="bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent">
                   SUJHAV
                 </span>
@@ -48,47 +37,50 @@ export default function HeroSection() {
 
               <div className="space-y-3 text-lg md:text-xl text-gray-300">
                 <p className="flex items-center">
-                  <span className="text-green-400 font-bold text-3xl mr-3">S</span>
-                  <span className="text-2xl tracking-wider">ynchronise your</span>
+                  <span className="text-green-400 font-bold text-2xl md:text-3xl mr-3">S</span>
+                  <span className="text-xl md:text-2xl tracking-wider">ynchronise your</span>
                 </p>
                 <p className="flex items-center">
-                  <span className="text-green-400 font-bold text-3xl mr-3">U</span>
-                  <span className="text-2xl tracking-wider">nderstanding, do</span>
+                  <span className="text-green-400 font-bold text-2xl md:text-3xl mr-3">U</span>
+                  <span className="text-xl md:text-2xl tracking-wider">nderstanding, do</span>
                 </p>
                 <p className="flex items-center">
-                  <span className="text-green-400 font-bold text-3xl mr-3">J</span>
-                  <span className="text-2xl tracking-wider">ustice to your</span>
+                  <span className="text-green-400 font-bold text-2xl md:text-3xl mr-3">J</span>
+                  <span className="text-xl md:text-2xl tracking-wider">ustice to your</span>
                 </p>
                 <p className="flex items-center">
-                  <span className="text-green-400 font-bold text-3xl mr-3">H</span>
-                  <span className="text-2xl tracking-wider">ardWork, and let others</span>
+                  <span className="text-green-400 font-bold text-2xl md:text-3xl mr-3">H</span>
+                  <span className="text-xl md:text-2xl tracking-wider">ardWork, and let others</span>
                 </p>
                 <p className="flex items-center">
-                  <span className="text-green-400 font-bold text-3xl mr-3">A</span>
-                  <span className="text-2xl tracking-wider">dmire your</span>
+                  <span className="text-green-400 font-bold text-2xl md:text-3xl mr-3">A</span>
+                  <span className="text-xl md:text-2xl tracking-wider">dmire your</span>
                 </p>
                 <p className="flex items-center">
-                  <span className="text-green-400 font-bold text-3xl mr-3">V</span>
-                  <span className="text-2xl tracking-wider">ictory</span>
+                  <span className="text-green-400 font-bold text-2xl md:text-3xl mr-3">V</span>
+                  <span className="text-xl md:text-2xl tracking-wider">ictory</span>
                 </p>
               </div>
 
               <p className="text-xl text-gray-400 max-w-2xl leading-relaxed">
-              SUJHAV serves as a platform to shape our thoughts about our career and provides clarity to our approach towards learning through practical techniques. 
+                SUJHAV serves as a platform to shape our thoughts about our career and provides clarity to our approach towards learning through practical techniques.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-               {!isLoggedIn && (
-                <Button
-                  size="lg"
-                  onClick={() => setIsLoginModalOpen(true)}
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-green-500/25 cursor-pointer"
-                >
-                  Get Started
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              )}
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-black font-semibold text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-green-500/25 cursor-pointer"
+                onClick={() => {
+                  const element = document.getElementById('contact');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                Get Started
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
               <Button
                 size="lg"
                 variant="outline"
@@ -98,7 +90,7 @@ export default function HeroSection() {
                 <Play className="mr-2 h-5 w-5" />
                 Watch Demo
               </Button>
-              <Link href="/gallery">
+              {/*<Link href="/gallery">
                 <Button
                   size="lg"
                   variant="outline"
@@ -107,39 +99,46 @@ export default function HeroSection() {
                   <Camera className="mr-2 h-5 w-5" />
                   View Gallery
                 </Button>
-              </Link>
+              </Link>*/}
             </div>
 
             {/* Stats */}
-            <div className="inline-flex grid-cols-3 gap-20 pt-8 pb-10">
+            <div className="grid grid-cols-3 gap-6 sm:gap-12 md:gap-20 pt-8 pb-10">
               <div className="text-center transform hover:scale-105 transition-transform duration-300">
-                <div className="text-3xl font-bold text-green-400">200+</div>
+                <div className="text-2xl md:text-3xl font-bold text-green-400">200+</div>
                 <div className="text-sm text-gray-400">Students Guided</div>
               </div>
               <div className="text-center transform hover:scale-105 transition-transform duration-300">
-                <div className="text-3xl font-bold text-green-400">95%</div>
+                <div className="text-2xl md:text-3xl font-bold text-green-400">95%</div>
                 <div className="text-sm text-gray-400">Success Rate</div>
               </div>
               <div className="text-center transform hover:scale-105 transition-transform duration-300">
-                <div className="text-3xl font-bold text-green-400">5+</div>
+                <div className="text-2xl md:text-3xl font-bold text-green-400">5+</div>
                 <div className="text-sm text-gray-400">Years Experience</div>
               </div>
             </div>
           </div>
 
           {/* Right Content - Logo with Glassmorphism Animation */}
-          <div className="relative flex justify-center lg:ml-5">
+          <div className="relative hidden md:flex justify-center lg:ml-5">
             <div className="relative">
               {/* 3D Floating Logo Container */}
-              <div className="relative w-100 h-100 animate-float">
+              <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] animate-float">
                 {/* Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-green-400/30 to-green-600/30 rounded-full blur-3xl animate-pulse-slow"></div>
 
                 {/* Logo Container with Glassmorphism and 3D rotation */}
                 <div className="relative w-full h-full bg-white/5 backdrop-blur-xl rounded-full border border-green-500/20 shadow-2xl animate-rotate-3d-full">
                   {/* Logo */}
-                  <div className="absolute inset-4">
-                    <Image src="/logo.png" alt="SUJHAV Logo" fill className="object-contain drop-shadow-2xl" />
+                  <div className="absolute inset-4 sm:inset-6 md:inset-8 lg:inset-10">
+                    <Image
+                      src="/logo.png"
+                      alt="SUJHAV Logo"
+                      fill
+                      priority
+                      sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 400px"
+                      className="object-contain drop-shadow-2xl"
+                    />
                   </div>
                 </div>
 
@@ -153,7 +152,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </section>
   )
 }

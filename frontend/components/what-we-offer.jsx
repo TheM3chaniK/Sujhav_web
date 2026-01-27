@@ -4,12 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { BookOpen, GraduationCap, Library, Compass, ArrowRight } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { motion } from "framer-motion"
 
 export default function WhatWeOffer() {
-  const [visibleCards, setVisibleCards] = useState([])
-  const sectionRef = useRef(null)
-
   const services = [
     {
       icon: BookOpen,
@@ -32,7 +29,7 @@ export default function WhatWeOffer() {
       title: "Free Library Access & Doubt Clearing",
       description:
         "24/7 library access with extensive study materials and dedicated doubt clearing sessions for all students.",
-      features: ["24*7 Self Study Space Available","Study Materials", "Reference Books", "Online Resources", "Doubt Sessions", "Group Discussions"],
+      features: ["24*7 Self Study Space Available", "Study Materials", "Reference Books", "Online Resources", "Doubt Sessions", "Group Discussions"],
       color: "from-green-400 to-green-500",
     },
     {
@@ -48,52 +45,12 @@ export default function WhatWeOffer() {
   const smoothScrollToContact = () => {
     const contactSection = document.getElementById("contact")
     if (contactSection) {
-      const targetPosition = contactSection.offsetTop - 50 // Offset for navbar
-      const startPosition = window.scrollY
-      const distance = targetPosition - startPosition
-      const duration = 1500 // 1.5 seconds for smooth animation
-      let start = null
-
-      function animation(currentTime) {
-        if (start === null) start = currentTime
-        const timeElapsed = currentTime - start
-        const progress = Math.min(timeElapsed / duration, 1)
-
-        // Easing function for smooth animation (ease-in-out)
-        const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2
-
-        window.scrollTo(0, startPosition + distance * ease)
-
-        if (timeElapsed < duration) {
-          requestAnimationFrame(animation)
-        }
-      }
-
-      requestAnimationFrame(animation)
+      contactSection.scrollIntoView({ behavior: "smooth" })
     }
   }
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const cardIndex = Number.parseInt(entry.target.getAttribute("data-index") || "0")
-            setVisibleCards((prev) => [...prev, cardIndex])
-          }
-        })
-      },
-      { threshold: 0.2 },
-    )
-
-    const cards = sectionRef.current?.querySelectorAll("[data-index]")
-    cards?.forEach((card) => observer.observe(card))
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section id="services" className="py-15 relative overflow-hidden" ref={sectionRef}>
+    <section id="services" className="py-24 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-800 to-black"></div>
       <div className="absolute inset-0 bg-gradient-to-bl from-green-900/15 via-gray-950 to-green-950/10"></div>
@@ -101,13 +58,19 @@ export default function WhatWeOffer() {
 
       {/* Animated background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-140 left-0 w-80 h-80 bg-green-500/15 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-100 right-0 w-80 h-80 bg-green-400/15 rounded-full blur-3xl animate-pulse-slow delay-1000"></div>
+        <div className="absolute top-20 left-0 w-80 h-80 bg-green-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-20 right-0 w-80 h-80 bg-green-400/10 rounded-full blur-3xl animate-pulse-slow delay-1000"></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header - Clean and Simple */}
-        <div className="text-center space-y-6 mb-16 animate-fade-in-up">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center space-y-6 mb-20"
+        >
           <Badge className="bg-green-500/10 backdrop-blur-sm text-green-400 border-green-500/20 px-4 py-2">
             Our Services
           </Badge>
@@ -119,26 +82,26 @@ export default function WhatWeOffer() {
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             Comprehensive educational solutions designed to nurture academic excellence and personal growth
           </p>
-        </div>
+        </motion.div>
 
         {/* Services - Vertical Layout */}
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-12">
           {services.map((service, index) => {
             const IconComponent = service.icon
-            const isVisible = visibleCards.includes(index)
+            const isEven = index % 2 === 0
 
             return (
-              <div
+              <motion.div
                 key={index}
-                data-index={index}
-                className={`transform transition-all duration-1000 ease-out ${
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-                } pb-10`}
-                style={{ transitionDelay: `${index * 200}ms` }}
+                initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="pb-6"
               >
-                <Card className="bg-white/5 backdrop-blur-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-500 transform hover:scale-[1.02] hover:-translate-y-2 group shadow-2xl hover:shadow-green-500/10">
+                <Card className="bg-white/5 backdrop-blur-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-500 transform hover:scale-[1.01] group shadow-2xl hover:shadow-green-500/10">
                   <CardHeader className="space-y-4">
-                    <div className="flex items-start space-x-6">
+                    <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
                       <div
                         className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg flex-shrink-0`}
                       >
@@ -155,13 +118,13 @@ export default function WhatWeOffer() {
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0 space-y-6">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 ml-22">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:ml-22">
                       {service.features.map((feature, featureIndex) => (
                         <div
                           key={featureIndex}
                           className="flex items-center space-x-2 text-sm text-gray-400 hover:text-green-400 transition-colors duration-300 group/feature"
                         >
-                          <div className="w-2 h-2 bg-green-400 rounded-full group-hover/feature:scale-125 transition-transform duration-300"></div>
+                          <div className="w-1.5 h-1.5 bg-green-400 rounded-full group-hover/feature:scale-125 transition-transform duration-300"></div>
                           <span>{feature}</span>
                         </div>
                       ))}
@@ -179,7 +142,7 @@ export default function WhatWeOffer() {
                     </div>
                   </CardContent>
                 </Card>
-              </div>
+              </motion.div>
             )
           })}
         </div>
@@ -187,3 +150,4 @@ export default function WhatWeOffer() {
     </section>
   )
 }
+

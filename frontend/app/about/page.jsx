@@ -1,10 +1,5 @@
 import Navbar from "@/components/navbar"
-import AboutHero from "@/components/about-hero"
-import WhySujhav from "@/components/why-sujhav"
-import WhatWeThink from "@/components/what-we-think"
-import SujhavSolution from "@/components/sujhav-solution"
-import LogoSignificance from "@/components/logo-significance"
-import Footer from "@/components/footer"
+import AboutContent from "@/components/about-content"
 
 export const metadata = {
   title: "About Us - SUJHAV Coaching Institute",
@@ -14,16 +9,11 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    
+
     <div className="min-h-screen bg-black">
       <Navbar />
-      <AboutHero />
-      <WhySujhav />
-      <WhatWeThink />
-      <SujhavSolution />
-      <LogoSignificance />
-      <Footer />
+      <AboutContent />
     </div>
-    
+
   )
 }

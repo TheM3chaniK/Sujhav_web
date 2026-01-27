@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Hand, User, Palette } from "lucide-react"
 import Image from "next/image"
+import { motion } from "framer-motion"
 
 export default function LogoSignificance() {
   const logoElements = [
@@ -55,18 +56,30 @@ export default function LogoSignificance() {
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center space-y-6 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center space-y-6 mb-16"
+        >
           <Badge className="bg-green-500/10 text-green-400 border-green-500/20 px-4 py-2">Our Symbol</Badge>
           <h2 className="text-4xl md:text-6xl font-bold">
             <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">
               Significance of the Logo
             </span>
           </h2>
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left - Logo Display */}
-          <div className="text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
             <div className="relative w-80 h-80 mx-auto mb-8">
               <div className="absolute inset-0 bg-gradient-to-r from-green-400/30 to-green-600/30 rounded-full blur-3xl animate-pulse-slow"></div>
               <div className="logo-container relative w-full h-full bg-white/5 backdrop-blur-xl rounded-full border border-green-500/20 shadow-2xl">
@@ -75,7 +88,7 @@ export default function LogoSignificance() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right - Logo Elements */}
           <div className="space-y-6">
@@ -83,24 +96,31 @@ export default function LogoSignificance() {
               const IconComponent = element.icon
 
               return (
-                <Card
+                <motion.div
                   key={index}
-                  className="bg-white/5 backdrop-blur-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-500 transform hover:scale-105 shadow-2xl"
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
                 >
-                  <CardContent className="p-6 space-y-4">
-                    <div className="flex items-center space-x-4">
-                      <div
-                        className={`w-12 h-12 rounded-xl bg-gradient-to-br ${element.color} flex items-center justify-center shadow-lg`}
-                      >
-                        <IconComponent className="h-6 w-6 text-black" />
+                  <Card
+                    className="bg-white/5 backdrop-blur-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-500 transform hover:scale-105 shadow-2xl"
+                  >
+                    <CardContent className="p-6 space-y-4">
+                      <div className="flex items-center space-x-4">
+                        <div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${element.color} flex items-center justify-center shadow-lg`}
+                        >
+                          <IconComponent className="h-6 w-6 text-black" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-green-400">{element.title}</h3>
+                          <p className="text-gray-400 text-sm">{element.description}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-bold text-green-400">{element.title}</h3>
-                        <p className="text-gray-400 text-sm">{element.description}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               )
             })}
           </div>
@@ -108,28 +128,47 @@ export default function LogoSignificance() {
 
         {/* Colors Section */}
         <div className="mb-16">
-          <div className="text-center mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-8"
+          >
             <h3 className="text-3xl font-bold text-green-400 mb-4">Colors</h3>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {colors.map((colorItem, index) => (
-              <Card
+              <motion.div
                 key={index}
-                className="bg-white/5 backdrop-blur-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-500 transform hover:scale-105 shadow-2xl"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
               >
-                <CardContent className="p-6 text-center space-y-4">
-                  <div className={`w-16 h-16 ${colorItem.color} rounded-full mx-auto shadow-lg`}></div>
-                  <h4 className={`text-xl font-bold ${colorItem.textColor}`}>{colorItem.name}</h4>
-                  <p className="text-gray-400 text-sm">{colorItem.description}</p>
-                </CardContent>
-              </Card>
+                <Card
+                  className="bg-white/5 backdrop-blur-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-500 transform hover:scale-105 shadow-2xl h-full"
+                >
+                  <CardContent className="p-6 text-center space-y-4">
+                    <div className={`w-16 h-16 ${colorItem.color} rounded-full mx-auto shadow-lg`}></div>
+                    <h4 className={`text-xl font-bold ${colorItem.textColor}`}>{colorItem.name}</h4>
+                    <p className="text-gray-400 text-sm">{colorItem.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
 
         {/* Message */}
-        <div className="text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center"
+        >
           <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 backdrop-blur-xl border border-green-500/30 shadow-2xl max-w-4xl mx-auto">
             <CardContent className="p-8 space-y-6">
               <Palette className="h-12 w-12 text-green-400 mx-auto" />
@@ -142,7 +181,7 @@ export default function LogoSignificance() {
               </p>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { HelpCircle, Target, Users, MapPin } from "lucide-react"
+import { motion } from "framer-motion"
 
 export default function WhatWeThink() {
   const questions = [
@@ -45,9 +46,15 @@ export default function WhatWeThink() {
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center space-y-6 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center space-y-6 mb-16"
+        >
           <Badge className="bg-green-500/10 text-green-400 border-green-500/20 px-4 py-2">Self Reflection</Badge>
-          <h2 className="text-4xl md:text-6xl font-bold">
+          <h2 className="text-3xl md:text-6xl font-bold">
             <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">
               What do we Think?
             </span>
@@ -56,7 +63,7 @@ export default function WhatWeThink() {
             Let's begin with a few questions that we must first ask ourselves. These are the major issues for which
             SUJHAV provides a solution.
           </p>
-        </div>
+        </motion.div>
 
         {/* Questions Grid */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -64,33 +71,46 @@ export default function WhatWeThink() {
             const IconComponent = item.icon
 
             return (
-              <Card
+              <motion.div
                 key={index}
-                className="bg-white/5 backdrop-blur-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-500 transform hover:scale-105 shadow-2xl hover:shadow-green-500/10"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
               >
-                <CardContent className="p-8 space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center transform hover:scale-110 transition-all duration-500 shadow-lg flex-shrink-0`}
-                    >
-                      <IconComponent className="h-8 w-8 text-black" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-3">
-                        <span className="text-2xl font-bold text-green-400">Question {index + 1}:</span>
+                <Card
+                  className="bg-white/5 backdrop-blur-xl border border-green-500/20 hover:border-green-400/40 transition-all duration-500 transform hover:scale-105 shadow-2xl hover:shadow-green-500/10 h-full"
+                >
+                  <CardContent className="p-6 sm:p-8 space-y-6">
+                    <div className="flex items-start space-x-4">
+                      <div
+                        className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center transform hover:scale-110 transition-all duration-500 shadow-lg flex-shrink-0`}
+                      >
+                        <IconComponent className="h-6 w-6 sm:h-8 sm:w-8 text-black" />
                       </div>
-                      <h3 className="text-xl font-bold text-green-300 mb-3 leading-relaxed">{item.question}</h3>
-                      <p className="text-gray-400 leading-relaxed">{item.description}</p>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <span className="text-lg sm:text-2xl font-bold text-green-400">Question {index + 1}:</span>
+                        </div>
+                        <h3 className="text-lg sm:text-xl font-bold text-green-300 mb-3 leading-relaxed">{item.question}</h3>
+                        <p className="text-sm sm:text-base text-gray-400 leading-relaxed">{item.description}</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
             )
           })}
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-16">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center mt-16"
+        >
           <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 backdrop-blur-xl border border-green-500/30 shadow-2xl max-w-4xl mx-auto">
             <CardContent className="p-8 space-y-4">
               <h3 className="text-2xl font-bold text-green-400">Ready to Find Your Answers?</h3>
@@ -100,7 +120,7 @@ export default function WhatWeThink() {
               </p>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
