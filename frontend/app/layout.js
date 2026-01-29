@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "SUJHAV - Rethink & Redefine Learning",
   description: "SUJHAV serves as a platform to shape our thoughts about our career and provides clarity to our approach towards learning through practical techniques.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
